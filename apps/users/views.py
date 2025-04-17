@@ -83,45 +83,45 @@ class TravelPlanAPIView(APIView):
 
         return Response(response_data, status=status.HTTP_200_OK)
 
-
-def plan_travel(prompt):
-    """
-    Sayohatni rejalashtirish uchun OpenAI ga so'rov yuboradi va AI tomonidan yaratilgan sayohat rejasini qaytaradi.
-    Javob o'zbek tilida bo'ladi.
-
-    Args:
-        prompt (str): Sayohat tafsilotlarini o'z ichiga olgan matn (masalan, manzil, sanalar, byudjet, qiziqishlar).
-
-    Returns:
-        str: AI tomonidan yaratilgan sayohat rejasi (o'zbek tilida) yoki xato xabari.
-    """
-    try:
-        # OpenAI klientini ishga tushirish
-        client = OpenAI(api_key=OPENAI_API_KEY)
-
-        # OpenAI ga so'rov yuborish
-        completion = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": """Siz sayohatni rejalashtiruvchi yordamchisiz. Sizning vazifangiz foydalanuvchi 
-                    kiritgan ma'lumotlarga asoslanib, batafsil va shaxsiylashtirilgan sayohat rejasini tuzishdir. 
-                    Foydalanuvchi ma'lumotlari manzil, sayohat sanalari, byudjet, qiziqishlar va maxsus talablarni 
-                    (masalan, nogironlik uchun qulayliklar) o'z ichiga olishi mumkin. Aniq, tushunarli va byudjetga
-                     mos keladigan sayohat rejasini tuzing, unda tavsiya etilgan faoliyatlar, turar joylar, ovqatlanish 
-                     joylari va sayohat bo'yicha maslahatlar bo'lsin. Agar ma'lumotlar noaniq bo'lsa, oqilona taxminlar 
-                     qiling va ularni tushuntiring. Javob faqat o'zbek tilida bo'lsin va faqat sayohat rejasiga e'tibor qarating."""
-                },
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ]
-        )
-
-        # AI javobini qaytarish
-        return completion.choices[0].message.content
-
-    except Exception as e:
-        return f"Xato yuz berdi: {e}"
+#
+# def plan_travel(prompt):
+#     """
+#     Sayohatni rejalashtirish uchun OpenAI ga so'rov yuboradi va AI tomonidan yaratilgan sayohat rejasini qaytaradi.
+#     Javob o'zbek tilida bo'ladi.
+#
+#     Args:
+#         prompt (str): Sayohat tafsilotlarini o'z ichiga olgan matn (masalan, manzil, sanalar, byudjet, qiziqishlar).
+#
+#     Returns:
+#         str: AI tomonidan yaratilgan sayohat rejasi (o'zbek tilida) yoki xato xabari.
+#     """
+#     try:
+#         # OpenAI klientini ishga tushirish
+#         client = OpenAI(api_key=OPENAI_API_KEY)
+#
+#         # OpenAI ga so'rov yuborish
+#         completion = client.chat.completions.create(
+#             model="gpt-4o-mini",
+#             messages=[
+#                 {
+#                     "role": "system",
+#                     "content": """Siz sayohatni rejalashtiruvchi yordamchisiz. Sizning vazifangiz foydalanuvchi
+#                     kiritgan ma'lumotlarga asoslanib, batafsil va shaxsiylashtirilgan sayohat rejasini tuzishdir.
+#                     Foydalanuvchi ma'lumotlari manzil, sayohat sanalari, byudjet, qiziqishlar va maxsus talablarni
+#                     (masalan, nogironlik uchun qulayliklar) o'z ichiga olishi mumkin. Aniq, tushunarli va byudjetga
+#                      mos keladigan sayohat rejasini tuzing, unda tavsiya etilgan faoliyatlar, turar joylar, ovqatlanish
+#                      joylari va sayohat bo'yicha maslahatlar bo'lsin. Agar ma'lumotlar noaniq bo'lsa, oqilona taxminlar
+#                      qiling va ularni tushuntiring. Javob faqat o'zbek tilida bo'lsin va faqat sayohat rejasiga e'tibor qarating."""
+#                 },
+#                 {
+#                     "role": "user",
+#                     "content": prompt
+#                 }
+#             ]
+#         )
+#
+#         # AI javobini qaytarish
+#         return completion.choices[0].message.content
+#
+#     except Exception as e:
+#         return f"Xato yuz berdi: {e}"
